@@ -41,7 +41,7 @@ button,input{font:inherit;color:inherit}
 button{background:none;border:0;padding:0;cursor:pointer;text-align:left}
 button:focus-visible,input:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .n{font-family:var(--num);font-variant-numeric:tabular-nums;letter-spacing:.2px}
-main{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px calc(92px + env(safe-area-inset-bottom,0px));display:grid;gap:14px}
+main{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:40px calc(92px + env(safe-area-inset-bottom,0px));display:grid;gap:14px}
 h1{font-size:26px;margin:0;font-weight:700;text-wrap:balance}
 .date{font-size:15px;color:var(--sub);font-weight:700}
 .card{background:var(--card);border:1.5px solid var(--line);border-radius:16px}
@@ -78,14 +78,31 @@ h1{font-size:26px;margin:0;font-weight:700;text-wrap:balance}
 .dock.slim{background:transparent;border:0;box-shadow:none;padding-block:8px}
 .dk1{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:28px}
 .dk1 b{font-size:16px}
-.dk3{display:flex;justify-content:space-between;gap:10px}
-.dk3 button{font-weight:700;color:var(--acc);font-size:15px;padding:6px 2px;max-width:70%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dk3{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.nb{display:flex;align-items:center;gap:6px;min-height:54px;padding:6px 10px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);font-weight:700;font-size:15px;color:var(--ink);min-width:0}
+.nb .t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.25}
+.nb .t small{display:block;font-size:11px;color:var(--mute)}
+.nb .ar2{color:var(--acc);font-size:22px;line-height:1}
+.dk3 .nb:last-child{text-align:right}
+.nb.hi{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.nb.hi .t small,.nb.hi .ar2{color:var(--acc-ink)}
+.nb.off{justify-content:center;color:var(--mute);font-weight:400;font-size:13px;border-style:dashed;background:transparent}
+.alts{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:8px 10px;border-top:1.5px solid var(--line)}
+.card>.alts{border-top:0}
+.alts-l{font-size:13px;font-weight:700;color:var(--sub);margin-right:2px}
+.alt{display:inline-flex;align-items:center;gap:4px;padding:4px 10px 4px 4px;border:1.5px solid var(--line);border-radius:20px;font-size:13px;font-weight:700;color:var(--acc);background:var(--card)}
+.alt svg{width:26px;height:26px;color:var(--ink)}
+.bform{display:grid;gap:10px;padding:12px 14px}
+.bform label{display:flex;align-items:center;gap:10px;font-weight:700}
+.bform input{flex:1;text-align:right;border:1.5px solid var(--line);border-radius:10px;padding:10px;background:var(--bg);font-family:var(--num);font-size:22px;font-weight:700}
+.fin{display:flex;gap:12px;align-items:center;font-weight:700;font-size:17px}
+.fin small{font-weight:400;font-size:13px;color:var(--sub)}
+.fin .check{flex:none;width:40px;height:40px;font-size:20px}
 .skip{font-size:14px;font-weight:700;color:var(--acc);margin-left:10px;padding:4px 6px;border:1.5px solid var(--line);border-radius:8px}
 .iost{font-size:13px;font-weight:700;color:var(--acc);margin-left:8px}
 .pos{font-size:13px;color:var(--mute);font-weight:700}
-.fview{display:grid;gap:14px;touch-action:pan-y}
-.flick{touch-action:none;cursor:ns-resize;border-radius:8px;background:repeating-linear-gradient(0deg,transparent 0 6px,transparent 6px)}
-.flick::after{content:"↕";font-size:12px;color:var(--mute);margin-left:2px;font-family:var(--font)}
+.fview{display:grid;gap:14px;touch-action:pan-y;will-change:transform}
+.dock{touch-action:pan-y}
 .tipsbox{padding:0}
 .tipsbox summary{list-style:none;padding:12px 14px;font-weight:700;color:var(--acc);cursor:pointer}
 .tipsbox summary::-webkit-details-marker{display:none}
@@ -243,7 +260,7 @@ const db=(x,y)=>pa(`M${x-5} ${y} H${x+5}`,'eq')+`<rect class="eqf" x="${x-7.5}" 
 const PICT={
   squat: hd(21,9)+pa('M8 15 H32','eq')+`<rect class="eqf" x="5" y="9" width="5" height="12" rx="1.5"/>`+pa('M20 14 L15 27 L27 29 L25 41 L30 41')+pa('M19 17 L25 15')+gnd(),
   rdl: hd(35,13)+pa('M31 17 L15 22 L18 32 L17 42')+pa('M29 18 L28 30')+`<circle class="eqf" cx="28" cy="34" r="5.5"/>`+gnd(),
-  latlunge: hd(24,8)+pa('M23 13 L21 27 L11 33 L11 42')+pa('M21 27 L38 42')+pa('M22 17 L30 22')+gnd(),
+  latlunge: hd(24,8)+pa('M24 13 V27 M24 27 L14 32 L16 43 M24 27 L34 32 L32 43')+pa('M24 17 L17 23 L24 26 L31 23 Z')+pa('M9 38 H3 M6 35 L3 38 L6 41 M39 38 H45 M42 35 L45 38 L42 41','eq')+gnd(45),
   calf: hd(22,7)+pa('M22 12 V26 V38 L24 42')+pa('M22 26 L30 28 L29 36')+pa('M22 15 L15 21 M22 15 L29 20')+pa('M38 42 V30 M34 34 L38 30 L42 34','eq')+gnd(),
   dbbench: hd(9,26)+pa('M7 32 H39 M11 32 V41 M35 32 V41','gr')+pa('M13 27 H29 L35 21 L37 40')+pa('M16 27 V14')+db(16,11),
   dbshoulder: hd(24,15)+pa('M24 20 V32 L20 44 M24 32 L28 44')+pa('M24 22 L16 19 L15 10 M24 22 L32 19 L33 10')+db(15,7)+db(33,7),
@@ -253,21 +270,22 @@ const PICT={
   sqjump: hd(24,8)+pa('M24 13 V27 L20 37 M24 27 L28 37')+pa('M24 15 L16 6 M24 15 L32 6')+pa('M12 40 V30 M36 40 V30','eq')+gnd(45),
   thruster: hd(18,11)+pa('M18 16 L16 28 L26 31 L24 42')+pa('M18 18 L25 21 L26 15')+db(28,12)+pa('M40 36 V10 M35 15 L40 10 L45 15','eq')+gnd(),
   burpee: hd(40,24)+pa('M36 26 L10 36')+pa('M34 27 V38')+pa('M18 22 V7 M13 12 L18 7 L23 12','eq')+gnd(40),
-  fbridge: hd(39,21)+pa('M35 24 H17 L17 35 L7 40')+pa('M35 24 V41')+gnd(42),
+  fbridge: hd(40,24)+pa('M35 28 L6 37')+pa('M35 28 L34 39 H42')+gnd(41),
   lbridge: hd(38,20)+pa('M34 25 L6 40')+pa('M34 25 V40 H42')+pa('M34 25 V10','eq')+gnd(42),
   bbridge: hd(6,37)+pa('M11 38 L24 28 L33 22 L36 40')+pa('M11 41 H22')+pa('M24 22 V12 M20 16 L24 12 L28 16','eq')+gnd(43),
   posrot: hd(24,8)+pa('M24 13 V29 L19 43 M24 29 L29 43')+pa('M24 17 L38 20')+pa('M13 25 A11 4.5 0 0 0 35 25 M31.5 22 L35 25 L31.5 28.5','eq'),
   aosrot: hd(24,8)+pa('M24 13 V29 L15 34 V43 M24 29 L34 43')+pa('M24 17 L10 12')+pa('M35 25 A11 4.5 0 0 1 13 25 M16.5 22 L13 25 L16.5 28.5','eq'),
   frontlunge: hd(24,7)+pa('M24 12 V27 L34 31 V42 M24 27 L15 37 L8 39')+pa('M24 15 V25')+`<rect class="eqf" x="21" y="25" width="6" height="7" rx="1.5"/>`+gnd(),
   legpress: pa('M6 42 L13 24','gr')+hd(11,19)+pa('M14 24 L20 36 L30 26 L37 31')+pa('M15 27 L21 31')+pa('M37 20 L43 38','eq')+pa('M37 20 L43 38','eq'),
-  splitrdl: hd(35,13)+pa('M31 17 L15 22 L18 32 L17 42 M15 22 L8 33 L5 42')+pa('M29 18 L28 29')+`<rect class="eqf" x="25" y="29" width="6" height="8" rx="1.5"/>`+gnd(),
+  splitrdl: hd(37,15)+pa('M33 19 L18 22 L19 32 L18 43 M18 22 L4 17')+pa('M31 20 L30 31')+`<rect class="eqf" x="27" y="31" width="6" height="7" rx="1.5"/>`+gnd(45),
   chestpress: pa('M8 34 H20 M14 34 V43 M8 34 V10','gr')+hd(14,11)+pa('M13 16 V32 H26 L28 42')+pa('M14 21 H27')+pa('M29 13 V29','eq'),
   dbrow: pa('M26 30 H44 M30 30 V42 M42 30 V42','gr')+hd(38,14)+pa('M34 18 L16 21 L14 42')+pa('M32 19 L33 30')+pa('M24 20 L21 26 L23 30')+`<rect class="eqf" x="19" y="30" width="7" height="6" rx="1.5"/>`+gnd(),
   bbrow: hd(35,13)+pa('M31 17 L15 24 L19 33 L18 42')+pa('M28 19 L27 26')+pa('M17 29 H38','eq')+`<circle class="eqf" cx="27" cy="29" r="5"/>`+pa('M42 34 V22 M39 25 L42 22 L45 25','eq')+gnd(),
   pushup: hd(40,25)+pa('M36 27 L10 37')+pa('M34 28 L29 33 L33 39')+gnd(41),
   warm: hd(22,10)+pa('M22 15 V28 L32 32 V42 M22 28 L10 42')+pa('M22 17 L30 5 M22 17 L27 28')+gnd(),
   walk: hd(26,8)+pa('M25 13 L23 27 L18 42 M23 27 L29 34 L31 42')+pa('M25 16 L20 24 M25 16 L31 22')+gnd(),
-  jog: hd(29,8)+pa('M27 13 L22 26 L13 31 M22 26 L30 32 L27 42')+pa('M27 16 L20 19 L17 15 M27 16 L32 22 L38 19')+gnd(),
+  jog: hd(29,8)+pa('M27 13 L22 26 L13 31 L10 37 M22 26 L30 32 L27 42')+pa('M26 16 L31 21 L36 17 M26 16 L20 20 L17 25')+gnd(),
+  volley: `<circle class="eq" cx="33" cy="6" r="4"/>`+hd(22,13)+pa('M22 18 V31 L17 38 L19 44 M22 31 L27 37 L25 43')+pa('M22 20 L28 11 M22 20 L17 11'),
   bike: `<circle class="eq" cx="12" cy="34" r="8"/><circle class="eq" cx="36" cy="34" r="8"/>`+pa('M12 34 L19 23 H32 L36 34 M19 23 L24 34 L32 23','gr')+hd(25,8)+pa('M24 13 L19 22 M24 15 L31 21 M19 22 L24 30'),
   tread: hd(22,8)+pa('M21 13 L19 27 L14 40 M19 27 L25 33 L27 40')+pa('M21 16 L28 20')+pa('M3 43 H38 L41 22 H32','eq'),
   cross: hd(22,8)+pa('M22 13 V28 L18 40 M22 28 L28 38')+pa('M22 16 L30 14')+pa('M31 5 L27 42 M13 43 H22 M24 41 H33','eq'),
@@ -320,7 +338,8 @@ const MENUS={
 const WARM={min:['グレイテスト・ストレッチ','キャットドッグ','スパイダー・ストレッチ'],full:['グレイテスト・ストレッチ','スパイダー・ストレッチ','バックライン・ストレッチ','キャットドッグ','チェストストレッチ','ラテラルライン・ストレッチ']};
 // 週の予定（トレーニングプログラム 2025.1.31 の表をもとにした仮の割り当て）
 const WEEK={1:{m:'rest',l:'休み'},2:{m:'cardio',l:'ランニング'},3:{m:'home',l:'自宅（できたら）'},4:{m:'rest',l:'休み'},5:{m:'gym',l:'ジム'},6:{m:'cardio',l:'ランニング'},0:{m:'rest',l:'予備日'}};
-const CTYPES=[['jog','ランニング'],['walk','ウォーキング'],['bike','バイク'],['tread','トレッドミル'],['cross','クロストレーナー']];
+const CTYPES=[['jog','ランニング'],['volley','バレーボール'],['walk','ウォーキング'],['bike','バイク'],['tread','トレッドミル'],['cross','クロストレーナー']];
+const NOKM={volley:1,cross:1};
 const PLATE={20:{c:'#1F5FC8',t:'#fff',w:26,h:116},15:{c:'#F2C230',t:'#3A2E00',w:23,h:106},10:{c:'#2F9E52',t:'#fff',w:20,h:92},5:{c:'#F4F4F4',t:'#222',w:17,h:74},2.5:{c:'#D8342C',t:'#fff',w:14,h:58},1.25:{c:'#A9AEB5',t:'#222',w:12,h:48}};
 const PLATES=[20,15,10,5,2.5,1.25];
 
@@ -481,7 +500,7 @@ function persist(){
   else if(had&&!DB.dels.s.includes(id)) DB.dels.s.push(id);
   save();queueSync();
 }
-const unsynced=()=>DB.sessions.filter(s=>!s.synced).length+DB.cardio.filter(c=>!c.synced).length+DB.dels.s.length+DB.dels.c.length;
+const unsynced=()=>DB.sessions.filter(s=>!s.synced).length+DB.cardio.filter(c=>!c.synced).length+DB.body.filter(b=>!b.synced).length+DB.dels.s.length+DB.dels.c.length;
 
 /* ===== スプレッドシート同期（GASのWebアプリ） =====
    ・記録が変わったら8秒後にまとめて送る。アプリを開いたとき・通信が戻ったときにも送る
@@ -500,17 +519,19 @@ async function gas(body,ms=25000){
 async function syncNow(manual){
   if(!canSync()){if(manual)toast('先にURLと合言葉を設定してください');return;}
   if(syncing)return;if(!navigator.onLine){if(manual)toast('オフラインです。つながったら自動で送ります');return;}
-  const ss=DB.sessions.filter(x=>!x.synced&&!x.sample),cs=DB.cardio.filter(x=>!x.synced&&!x.sample),dl={s:[...DB.dels.s],c:[...DB.dels.c]};
-  if(!ss.length&&!cs.length&&!dl.s.length&&!dl.c.length){if(manual)toast('送る記録はありません');return;}
+  const ss=DB.sessions.filter(x=>!x.synced&&!x.sample),cs=DB.cardio.filter(x=>!x.synced&&!x.sample),bs=DB.body.filter(x=>!x.synced&&!x.sample),dl={s:[...DB.dels.s],c:[...DB.dels.c]};
+  if(!ss.length&&!cs.length&&!bs.length&&!dl.s.length&&!dl.c.length){if(manual)toast('送る記録はありません');return;}
   syncing=true;
   try{
     const j=await gas({action:'push',
       sessions:ss.map(x=>({id:x.id,date:x.date,mode:x.mode,modeName:(MENUS[x.mode]||{}).name||x.mode,level:x.level,rev:x.rev,
         items:x.items.map(i=>({ex:i.ex,name:(EX[i.ex]||{}).name||i.ex,target:i.target,sets:i.sets}))})),
       cardio:cs.map(x=>({id:x.id,date:x.date,type:x.type,typeName:(CTYPES.find(t=>t[0]===x.type)||[0,x.type])[1],min:x.min,km:x.km||0,hr:x.hr||0,rev:x.rev})),
+      body:bs.map(x=>({id:x.id,date:x.date,w:x.w,f:x.f,rev:x.rev})),
       dels:dl});
     j.sessions.forEach(r=>{const x=DB.sessions.find(y=>y.id===r.id);if(x&&x.rev===r.rev)x.synced=true;});
     j.cardio.forEach(r=>{const x=DB.cardio.find(y=>y.id===r.id);if(x&&x.rev===r.rev)x.synced=true;});
+    (j.body||[]).forEach(r=>{const x=DB.body.find(y=>y.id===r.id);if(x&&x.rev===r.rev)x.synced=true;});
     DB.dels.s=DB.dels.s.filter(x=>!dl.s.includes(x));DB.dels.c=DB.dels.c.filter(x=>!dl.c.includes(x));
     DB.sync={at:Date.now(),ok:true,msg:''};save();if(manual)toast('スプレッドシートに送りました');
   }catch(e){DB.sync={at:Date.now(),ok:false,msg:e.message};save();if(manual)toast(e.message);}
@@ -526,7 +547,8 @@ async function pullAll(){
       r.items.forEach(i=>{i.slot=Object.keys(SLOTS).find(k=>SLOTS[k].opts.includes(i.ex))||i.ex;});
       DB.sessions.push({...r,synced:true,rev:0});n++;});
     j.cardio.forEach(r=>{const x=DB.cardio.find(y=>y.id===r.id);if(x&&!x.synced)return;DB.cardio=DB.cardio.filter(y=>y.id!==r.id);DB.cardio.push({...r,synced:true,rev:0});n++;});
-    DB.sessions=DB.sessions.filter(x=>!x.sample);DB.cardio=DB.cardio.filter(x=>!x.sample);
+    (j.body||[]).forEach(r=>{const x=DB.body.find(y=>y.id===r.id);if(x&&!x.synced)return;DB.body=DB.body.filter(y=>y.id!==r.id);DB.body.push({...r,synced:true,rev:0});n++;});
+    DB.sessions=DB.sessions.filter(x=>!x.sample);DB.cardio=DB.cardio.filter(x=>!x.sample);DB.body=DB.body.filter(x=>!x.sample);
     save();toast(`${n}件の記録を読み込みました`);
   }catch(e){toast(e.message);}
   render();
@@ -576,10 +598,10 @@ function vToday(){
   let lastG='';
   h+=d.items.map((it,i)=>{const e=EX[it.ex],dn=it.sets.filter(s=>s.done).length,sw=canSwap(it),g=grp(it);
     const head=(d.mode==='gym'||g==='opt')&&g!==lastG?`<div class="sec">${GL[g]}</div>`:'';lastG=g;
-    return head+`<div class="card exrow2 ${dn===it.sets.length?'done':''}" data-swipe-i="${i}">
+    return head+`<div class="card exrow2 ${dn===it.sets.length?'done':''}">
       <button class="exrow" data-act="focus" data-i="${i}"><span class="ico">${pict(PK[it.ex])}</span><span style="min-width:0"><span class="nm">${esc(e.name)}</span><span class="tg">${tgtText(it)} ${noteChip(it.tgt)}</span></span>
       <span class="dots">${it.sets.map(s=>`<i class="${s.done?'on':''}"></i>`).join('')}</span></button>
-      ${sw?`<button class="swap" data-act="swap" data-i="${i}">⇄ ${esc(EX[nextOpt(it)].name)}に替える</button>`:''}</div>`;}).join('')+'</div>';
+      ${sw?swapChips(it,i):''}</div>`;}).join('')+'</div>';
   const allDone=d.items.filter(it=>!it.opt).every(it=>it.sets.every(s=>s.done));
   if(allDone) h+=`<div class="done-banner">おつかれさまでした。記録は保存済みです${d.items.some(x=>x.opt&&x.sets.some(y=>!y.done))?'<br><span style="font-weight:400">時間があれば追加の種目もどうぞ</span>':''}</div>`;
   else{const started=d.items.some(it=>it.sets.some(s=>s.done));h+=`<div class="spacer" style="height:76px"></div><div class="dock slim"><button class="big" data-act="start">${started?'つづける':'はじめる'}</button></div>`;}
@@ -605,7 +627,7 @@ function vFocus(){
   let h=`<div id="fview" class="fview"><div class="fhead"><span class="ico">${pict(PK[it.ex])}</span><div><div class="pos">${i+1} / ${d.items.length}</div><h2>${esc(e.name)}</h2><div class="tg">目標 ${tgtText(it)} ${noteChip(it.tgt)}</div></div></div>`;
   if(it.tgt.from) h+=`<p class="hint" style="margin:0">${esc(it.tgt.from)}</p>`;
   if(e.tips.length) h+=`<details class="card tipsbox" ${ui.tips?'open':''}><summary data-act="tips">コツを見る</summary><ul class="tips">${e.tips.map(t=>`<li>${esc(t)}</li>`).join('')}</ul></details>`;
-  if(canSwap(it)) h+=`<button class="swap card" style="margin:0" data-act="swap" data-i="${i}">⇄ ${esc(EX[nextOpt(it)].name)}に替える</button>`;
+  if(canSwap(it)) h+=`<div class="card">${swapChips(it,i)}</div>`;
   if(e.eq==='barbell'){
     const pl=platesFor(s.kg);let how='片側：'+(pl.length?pl.join(' ＋ '):'プレートなし');
     if(j>0){const df=plateDiff(platesFor(it.sets[j-1].kg),pl);if(df.add.length||df.rem.length)how='前のセットから 片側 '+[df.rem.length?'外す '+df.rem.join('・'):'',df.add.length?'付ける '+df.add.join('・'):''].filter(Boolean).join('、');else how='前のセットと同じ（'+(pl.join(' ＋ ')||'プレートなし')+'）';}
@@ -614,27 +636,34 @@ function vFocus(){
   h+=`<div class="card setlist"><div class="slh"><span></span><span>前回</span><span></span><span>今回</span><span></span></div>${it.sets.map((x,k)=>`<button class="srow ${k===j?'cur':''}" data-act="pick" data-j="${k}">
       <span class="no">${k+1}</span><span class="p n">${fmt(ps[k])}</span><span class="ar">→</span><span class="c n">${fmt(x)}</span><span class="check ${x.done?'on':''}">✓</span></button>`).join('')}</div>`;
   const nx=d.items[i+1];
-  h+=`<p class="note">左スワイプで次の種目、右スワイプで一覧へ</p></div><div class="spacer" id="dockspace"></div>`;
+  h+=`<p class="note">右にスワイプ、または下の「今日」で一覧に戻ります</p></div><div class="spacer" id="dockspace"></div>`;
   // 下：親指で操作する場所
   const pv=ps[j];
   const top=isBB(it)&&d.bbStart?`<span id="bbt" class="bbt"></span>`:'';
   const rest=ui.restEnd>Date.now()?`<span class="rest"><span id="rest"></span>${DB.settings.ios?` <a class="iost" href="shortcuts://run-shortcut?name=${encodeURIComponent(DB.settings.iosName)}&input=text&text=${Math.round((ui.restEnd-Date.now())/1000)}">iPhoneで計る</a>`:''}<button class="skip" data-act="skiprest">スキップ</button></span>`:'';
-  h+=`<div class="dock" id="dock"><div class="dk1"><b>セット ${j+1} / ${it.sets.length}</b>${rest||top}</div>`;
-  if(isT){
+  const fin=it.sets.every(x=>x.done)&&!ui.edit;
+  h+=`<div class="dock" id="dock"><div class="dk1"><b>${fin?'この種目は完了':`セット ${j+1} / ${it.sets.length}`}</b>${rest||top}</div>`;
+  if(fin){
+    const left=d.items.filter(x=>!x.opt&&x.sets.some(y=>!y.done)).length;
+    h+=`<div class="fin"><span class="check on">✓</span><span>${it.sets.map(x=>fmt(x)).join('、')}<br><small>${left?`残り ${left} 種目`:'今日のメニューはすべて完了'}${'　直すときはセットをタップ'}</small></span></div>`;
+    if(!nx) h+=`<button class="big" data-act="back">一覧に戻る</button>`;
+  } else if(isT){
     h+=`<div class="vs"><div class="col prevc"><div class="lab">前回</div><div class="v n">${pv?(pv.sec||0)+'<small>秒</small>':'—'}</div></div>
-      <div class="col nowc"><div class="lab">今回${e.sides?'（左右それぞれ）':''}</div><div class="stp"><button data-act="sec" data-d="-10" aria-label="10秒減らす">−</button><span class="v n flick" data-flick="sec">${s.sec}<small>秒</small></span><button data-act="sec" data-d="10" aria-label="10秒増やす">＋</button></div></div></div>`;
+      <div class="col nowc"><div class="lab">今回${e.sides?'（左右それぞれ）':''}</div><div class="stp"><button data-act="sec" data-d="-10" aria-label="10秒減らす">−</button><span class="v n">${s.sec}<small>秒</small></span><button data-act="sec" data-d="10" aria-label="10秒増やす">＋</button></div></div></div>`;
     h+=ui.hold?`<div class="hold"><div class="hold-v"><span id="holdp" class="hold-p"></span><b id="holdv" class="n">0</b><small>/ ${s.sec}秒</small></div><div class="hbar"><i id="holdbar"></i></div><button class="big ghost" data-act="holdstop">ここでやめる（記録する）</button></div>`
       :`<button class="big ok" data-act="holdstart">スタート（3秒後に開始）</button>`;
   } else {
     h+=`<div class="vs"><div class="col prevc"><div class="lab">前回${last?' '+md(last.date):''}</div>
       ${pv?`<div class="v n">${isW?kg(pv.kg)+'<small>kg</small><br>':''}${pv.reps}<small>回</small></div>`:'<div class="v">—</div>'}</div>
       <div class="col nowc"><div class="lab">今回</div>
-      ${isW?`<div class="stp"><button data-act="kg" data-d="-1" aria-label="重さを減らす">−</button><span class="v n flick" data-flick="kg">${kg(s.kg)}<small>kg</small></span><button data-act="kg" data-d="1" aria-label="重さを増やす">＋</button></div>`:''}
-      ${e.goal?'':`<div class="stp"><button data-act="rep" data-d="-1" aria-label="回数を減らす">−</button><span class="v n flick" data-flick="rep">${s.reps}<small>${esc(unitOf(e))}</small></span><button data-act="rep" data-d="1" aria-label="回数を増やす">＋</button></div>`}</div></div>`;
+      ${isW?`<div class="stp"><button data-act="kg" data-d="-1" aria-label="重さを減らす">−</button><span class="v n">${kg(s.kg)}<small>kg</small></span><button data-act="kg" data-d="1" aria-label="重さを増やす">＋</button></div>`:''}
+      ${e.goal?'':`<div class="stp"><button data-act="rep" data-d="-1" aria-label="回数を減らす">−</button><span class="v n">${s.reps}<small>${esc(unitOf(e))}</small></span><button data-act="rep" data-d="1" aria-label="回数を増やす">＋</button></div>`}</div></div>`;
     h+=e.goal?`<div class="reps">${[8,9,10,11,12].map(r=>`<button class="${r===e.goal?'main':''} ${s.done&&s.reps===r?'sel':''}" data-act="doneR" data-r="${r}"><b class="n">${r}</b><small>${r===8?'きつい':r===e.goal?'目標':r===12?'余裕':''}</small></button>`).join('')}</div>`
       :`<button class="big ok" data-act="done">${s.done?'修正して保存':'できた'}</button>`;
   }
-  h+=`<div class="dk3"><button data-act="back">‹ 一覧</button>${nx?`<button data-act="next">次：${esc(EX[nx.ex].name)} ›</button>`:'<span></span>'}</div></div>`;
+  const pv2=d.items[i-1];
+  const nb=(x,act,dir)=>x?`<button class="nb ${dir>0&&fin?'hi':''}" data-act="${act}"><span class="ar2">${dir<0?'‹':''}</span><span class="t"><small>${dir<0?'前の種目':'次の種目'}</small>${esc(EX[x.ex].name)}</span><span class="ar2">${dir>0?'›':''}</span></button>`:`<span class="nb off">${dir<0?'最初の種目':'最後の種目'}</span>`;
+  h+=`<div class="dk3">${nb(pv2,'prev',-1)}${nb(nx,'next',1)}</div></div>`;
   return h;
 }
 
@@ -647,7 +676,7 @@ function vCardio(){
       <div class="gd">${Array.from({length:goal},(_,k)=>`<i class="${k<done?'on':''}"></i>`).join('')}</div></div>`;
   h+=`<div class="types">${CTYPES.map(([k,l])=>`<button class="${C.type===k?'on':''}" data-act="ctype" data-k="${k}">${pict(k)}${l}</button>`).join('')}</div>`;
   h+=`<div class="card"><div class="crow"><b>時間</b><div class="stp"><button data-act="cmin" data-d="-1" aria-label="1分減らす">−</button><span class="v n">${C.min}<small>分</small></span><button data-act="cmin" data-d="1" aria-label="1分増やす">＋</button></div></div>
-      <div class="crow"><span><b>距離</b>${pace?`<br><span class="hint" style="padding:0">ペース ${Math.floor(pace)}'${String(Math.round((pace%1)*60)).padStart(2,'0')}"/km</span>`:''}</span><div class="stp"><button data-act="ckm" data-d="-0.1" aria-label="0.1km減らす">−</button><span class="v n">${C.km.toFixed(1)}<small>km</small></span><button data-act="ckm" data-d="0.1" aria-label="0.1km増やす">＋</button></div></div>
+${NOKM[C.type]?'':`<div class="crow"><span><b>距離</b>${pace?`<br><span class="hint" style="padding:0">ペース ${Math.floor(pace)}'${String(Math.round((pace%1)*60)).padStart(2,'0')}"/km</span>`:''}</span><div class="stp"><button data-act="ckm" data-d="-0.1" aria-label="0.1km減らす">−</button><span class="v n">${C.km.toFixed(1)}<small>km</small></span><button data-act="ckm" data-d="0.1" aria-label="0.1km増やす">＋</button></div></div>`}
       <div class="crow"><span><b>平均心拍</b><br><span class="hint" style="padding:0">いつもの ${st.hrLo}–${st.hrHi}</span></span><input id="c-hr" inputmode="numeric" placeholder="なし" value="${esc(C.hr)}" data-cfld="hr" aria-label="平均心拍"></div></div>`;
   h+=`<button class="big ${C.saved?'ghost':''}" data-act="csave">${C.saved?'記録済み（もう一度保存）':'記録する'}</button>`;
   const hr=+C.hr; if(hr>st.hrHi+5) h+=`<p class="hint">いつもより心拍が高めです。暑さ・寝不足・疲れがあるかも。次回は少しペースを落としてOK</p>`;
@@ -672,10 +701,38 @@ function chart(pts,color){
   pts.forEach((p,k)=>{g+=`<circle cx="${X(k)}" cy="${Y(p.y)}" r="${k===pts.length-1?4.5:3}" fill="${k===pts.length-1?color:'var(--card)'}" stroke="${color}" stroke-width="2"/><text x="${X(k)}" y="${H-4}" text-anchor="middle">${p.l}</text>`;});
   return `<svg viewBox="0 0 ${W} ${H}">${g}</svg>`;
 }
+/* 筋力スコア：種目ごとの推定1RMを「その種目の最初の記録＝100」に直し、日ごとに平均したもの。
+   代わりの種目は換算の比率で基本の種目にそろえる。ざっくりした目安 */
+function strengthSeries(){
+  const keyOf=ex=>Object.keys(SLOTS).find(k=>SLOTS[k].opts.includes(ex))||ex;
+  const base={},cur={},out=[];
+  [...DB.sessions].sort((a,b)=>a.date<b.date?-1:1).forEach(se=>{
+    se.items.forEach(it=>{const e=EX[it.ex];if(!e||e.eq==='body'||!it.sets.length)return;
+      const k=keyOf(it.ex),p=slotOf(k).opts[0];
+      const v=Math.max(...it.sets.map(x=>e1(x.kg,x.reps)))*(it.ex===p?1:ratio(it.ex,p));
+      if(!base[k])base[k]=v;cur[k]=v/base[k]*100;});
+    const ks=Object.keys(cur);if(!ks.length)return;
+    const sc=Math.round(ks.reduce((a,k)=>a+cur[k],0)/ks.length);
+    if(out.length&&out.at(-1).date===se.date)out.at(-1).y=sc;else out.push({date:se.date,y:sc});
+  });
+  return out;
+}
 function vLog(){
   let h=`<h1>記録</h1>`;
+  const sc=strengthSeries();
+  if(sc.length){const l=sc.at(-1),f=sc[0];
+    h+=`<div class="card hdet" style="padding-top:14px"><div class="stat" style="padding:0 0 6px"><span class="k">筋力スコア<br><small style="font-weight:400">最初の記録＝100</small></span><span class="bigv n">${l.y}${l.y>f.y?`<small style="color:var(--up)"> +${l.y-f.y}</small>`:''}</span></div>
+      ${sc.length>1?chart(sc.slice(-12).map(x=>({y:x.y,l:md(x.date)})),'var(--acc)'):''}</div>`;}
   const b=[...DB.body].sort((a,c)=>a.date<c.date?-1:1),lb=b.at(-1);
-  if(lb) h+=`<div class="card stat"><span class="k">体重（${lb.date.replace(/-/g,'/')}）</span>${spark(b.map(x=>x.w),'var(--up)')}<span class="bigv n">${lb.w.toFixed(1)}<small> kg</small>　<span style="font-size:20px">${lb.f.toFixed(1)}<small> %</small></span></span></div>`;
+  h+=`<div class="sec">体重・体脂肪率</div><div class="card">`;
+  if(lb) h+=`<button class="stat" style="width:100%" data-act="bopen" aria-expanded="${ui.bopen}"><span class="k">${lb.date.replace(/-/g,'/')}</span>${spark(b.map(x=>x.w),'var(--up)')}<span class="bigv n">${lb.w.toFixed(1)}<small> kg</small>　<span style="font-size:20px">${(lb.f||0).toFixed(1)}<small> %</small></span></span></button>`;
+  if(ui.bopen&&b.length>1) h+=`<div class="hdet">${chart(b.slice(-12).map(x=>({y:x.w,l:md(x.date)})),'var(--up)')}${chart(b.slice(-12).map(x=>({y:x.f||0,l:md(x.date)})),'var(--acc)')}<p class="note">上：体重（kg）　下：体脂肪率（%）</p></div>`;
+  if(ui.bform){const td=DB.body.find(x=>x.date===TODAY);
+    h+=`<div class="bform"><label>体重<input id="b-w" inputmode="decimal" value="${td?td.w:lb?lb.w:''}" placeholder="63.0"><span>kg</span></label>
+      <label>体脂肪率<input id="b-f" inputmode="decimal" value="${td?td.f:lb?lb.f:''}" placeholder="16.0"><span>%</span></label>
+      <button class="big" data-act="bsave">今日の値として記録</button></div>`;}
+  else h+=`<button class="srow2" data-act="bform"><span style="color:var(--acc);font-weight:700">＋ 今日の体重・体脂肪率を記録</span><span class="v">${DB.body.some(x=>x.date===TODAY)?'記録済み':''}</span></button>`;
+  h+=`</div>`;
   h+=`<div class="sec">筋トレ</div><div class="card">`;
   const ids=Object.keys(EX).filter(id=>EX[id].eq!=='body'&&history(id).length);
   h+=ids.map(id=>{
@@ -690,7 +747,7 @@ function vLog(){
   h+=`<div class="sec">有酸素（週${goal}回が目標）</div><div class="card" style="padding:14px 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;text-align:center">
     ${wk.map((w,k)=>`<div style="display:grid;gap:6px;justify-items:center"><div class="gd">${Array.from({length:Math.max(goal,w.length)},(_,j)=>`<i class="${j<w.length?'on':''}"></i>`).join('')}</div>
       <b class="n" style="font-size:15px">${w.reduce((a,c)=>a+(c.km||0),0).toFixed(1)}km</b><span style="font-size:13px;color:var(--sub)">${['3週前','2週前','先週','<b>今週</b>'][k]}</span></div>`).join('')}</div>`;
-  h+=`<p class="note">筋トレ・有酸素の過去分はサンプルです。</p>`;
+  h+=`<p class="note">筋力スコアは推定の最大挙上重量から出した目安です。筋トレ・有酸素の過去分はサンプルです。</p>`;
   return h;
 }
 
@@ -735,6 +792,8 @@ function vSet(){
   return h;
 }
 
+function altOpts(it){const o=slotOf(it.slot).opts;return o.filter(x=>x!==it.ex);}
+function swapChips(it,i){return `<div class="alts"><span class="alts-l">⇄ 替える</span>${altOpts(it).map(x=>`<button class="alt" data-act="swapto" data-i="${i}" data-ex="${x}">${pict(PK[x])}<span>${esc(EX[x].name)}</span></button>`).join('')}</div>`;}
 function nextOpt(it){const o=slotOf(it.slot).opts;return o[(o.indexOf(it.ex)+1)%o.length];}
 function canSwap(it){return slotOf(it.slot).opts.length>1&&!it.sets.some(s=>s.done);}
 function coach(d){
@@ -784,9 +843,9 @@ function completeSet(){
   const label=EX[it.ex].time?`${s.sec}秒`:EX[it.ex].eq==='body'?`${s.reps}回`:`${kg(s.kg)}kg × ${s.reps}回`;
   const nx=it.sets.findIndex(x=>!x.done);
   if(nx>=0){ui.cur=nx;ui.restEnd=Date.now()+restSec(it)*1000;toast(`記録：${label}`,true);}
-  else{const ni=d.items.findIndex(x=>!x.opt&&x.sets.some(y=>!y.done));
-    if(ni>=0){openFocus(ni);ui.restEnd=Date.now()+restSec(d.items[ni])*1000;toast(`記録：${label}　次は ${EX[d.items[ni].ex].name}`,true);scrollTo(0,0);}
-    else{ui.focus=null;ui.restEnd=0;toast(it.opt?'おつかれさまでした':'今日のメニュー完了',true);scrollTo(0,0);}}
+  else{ui.edit=false;const ni=d.items.findIndex(x=>!x.opt&&x.sets.some(y=>!y.done));
+    if(ni>=0){ui.restEnd=Date.now()+restSec(d.items[ni])*1000;toast(`記録：${label}　この種目は完了`,true);}
+    else{ui.restEnd=0;toast(it.opt?'おつかれさまでした':'今日のメニュー完了',true);}}
 }
 /* ===== 操作 ===== */
 let tt;function toast(m,canUndo){const t=$('#toast');t.innerHTML=esc(m)+(canUndo&&UNDO?'<button class="undo" data-act="undo">取り消す</button>':'');t.hidden=false;placeToast();clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,canUndo?4000:1800);}
@@ -798,11 +857,11 @@ setInterval(()=>{
 setInterval(()=>{if(ui.hold)holdTick();},200);
 setInterval(()=>{if(ui.restEnd&&!ui.restBeeped&&Date.now()>=ui.restEnd){ui.restBeeped=true;beep(988,180,2);}const el=$('#rest');if(!el)return;const s=Math.ceil((ui.restEnd-Date.now())/1000);if(s<=0){el.textContent='休憩おわり';return;}el.textContent=`休憩 ${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;},250);
 function firstUndone(it){const k=it.sets.findIndex(s=>!s.done);return k<0?0:k;}
-function openFocus(i){ui.focus=i;ui.cur=firstUndone(D().items[i]);ui.tips=false;}
+function openFocus(i){ui.focus=i;ui.cur=firstUndone(D().items[i]);ui.tips=false;ui.edit=false;}
 
 document.addEventListener('click',e=>{
   const tb=e.target.closest('[data-tab]');
-  if(tb){ui.wipe=false;ui.pull=false;ui.tab=tb.dataset.tab;if(ui.tab!=='today')ui.focus=null;render();scrollTo(0,0);return;}
+  if(tb){ui.wipe=false;ui.pull=false;ui.tab=tb.dataset.tab;ui.focus=null;ui.hold=null;render();scrollTo(0,0);return;}
   audioUnlock();
   const el=e.target.closest('[data-act]');if(!el)return;
   const a=el.dataset.act,d=D();
@@ -815,8 +874,8 @@ document.addEventListener('click',e=>{
     case 'start': {let i=d.items.findIndex(x=>!x.opt&&x.sets.some(y=>!y.done));if(i<0)i=d.items.findIndex(x=>x.sets.some(y=>!y.done));openFocus(i<0?0:i);scrollTo(0,0);break;}
     case 'back': ui.focus=null;ui.hold=null;break;
     case 'tips': e.preventDefault();ui.tips=!ui.tips;break;
-    case 'pick': ui.cur=+el.dataset.j;break;
-    case 'swap': {snap();const x=d.items[+el.dataset.i];const n=nextOpt(x);x.ex=n;x.tgt=targetFor(x.slot,n);x.sets.forEach(y=>{y.kg=x.tgt.kg;y.reps=x.tgt.reps;});
+    case 'pick': ui.cur=+el.dataset.j;ui.edit=true;break;
+    case 'swapto': case 'swap': {snap();const x=d.items[+el.dataset.i];const n=el.dataset.ex||nextOpt(x);x.ex=n;x.tgt=targetFor(x.slot,n);x.sets.forEach(y=>{y.kg=x.tgt.kg;y.reps=x.tgt.reps;});
       DB.choice[x.slot]=n;save();toast(`${EX[n].name}：${EX[n].eq==='body'?'':kg(x.tgt.kg)+'kg × '}${x.tgt.reps}回`,true);break;}
     case 'kg': { const e2=EX[it.ex];const v=snap2(it.ex,s.kg+(+el.dataset.d)*e2.step);
       // 変更はこのセットと、まだやっていない後のセットにも反映
@@ -829,14 +888,21 @@ document.addEventListener('click',e=>{
       if(n&&n.ph==='R')v=Math.floor(n.t/10)*10;if(n&&n.ph==='prep'){ui.hold=null;break;}finishHold(v);return;}
     case 'sec': s.sec=Math.max(10,s.sec+(+el.dataset.d));it.sets.forEach((x,k)=>{if(k>ui.cur&&!x.done)x.sec=s.sec;});break;
     case 'skiprest': ui.restEnd=0;break;
-    case 'next': if(ui.focus<d.items.length-1){openFocus(ui.focus+1);scrollTo(0,0);}break;
+    case 'next': if(ui.focus<d.items.length-1){slideTo(ui.focus+1,-1);}return;
+    case 'prev': if(ui.focus>0){slideTo(ui.focus-1,1);}return;
     case 'undo': undo();return;
-    case 'ctype': d.cardio.type=el.dataset.k;break;
+    case 'ctype': d.cardio.type=el.dataset.k;if(NOKM[el.dataset.k])d.cardio.km=0;else if(!d.cardio.km)d.cardio.km=5;break;
     case 'cmin': d.cardio.min=Math.max(5,d.cardio.min+(+el.dataset.d));break;
     case 'ckm': d.cardio.km=Math.max(0,Math.round((d.cardio.km+(+el.dataset.d))*10)/10);break;
     case 'csave': {const C=d.cardio;DB.cardio=DB.cardio.filter(c=>c.id!=='c'+TODAY);
       DB.cardio.push({id:'c'+TODAY,date:TODAY,type:C.type,min:C.min,km:C.km,hr:+C.hr||0,synced:false,rev:Date.now()});DB.dels.c=DB.dels.c.filter(x=>x!=='c'+TODAY);C.saved=true;save();queueSync(2000);
       const n=weekRuns(0).length;toast(n>=DB.settings.runGoal?`今週${n}回目。えらい！`:`今週${n}回目。記録しました`);break;}
+    case 'bopen': ui.bopen=!ui.bopen;break;
+    case 'bform': ui.bform=true;break;
+    case 'bsave': {const w=parseFloat(($('#b-w')||{}).value),f=parseFloat(($('#b-f')||{}).value);
+      if(!(w>20&&w<300)){toast('体重を入れてください');return;}
+      DB.body=DB.body.filter(x=>x.date!==TODAY);DB.body.push({id:'b'+TODAY,date:TODAY,w:Math.round(w*10)/10,f:isNaN(f)?0:Math.round(f*10)/10,synced:false,rev:Date.now()});
+      ui.bform=false;save();queueSync(2000);toast('記録しました');break;}
     case 'hopen': ui.open=ui.open===el.dataset.k?null:el.dataset.k;break;
     case 'tog': DB.settings[el.dataset.k]=!DB.settings[el.dataset.k];save();break;
     case 'collar': DB.settings.useCollar=!DB.settings.useCollar;save();break;
@@ -860,27 +926,45 @@ document.addEventListener('input',e=>{
   if(t.dataset.sstr!==undefined&&t.dataset.sstr){DB.settings[t.dataset.sstr]=t.value.trim();save();}
   if(t.dataset.sfld){const v=parseFloat(t.value);if(!isNaN(v)){DB.settings[t.dataset.sfld]=v;save();}}
 });
-/* ===== 親指操作：スワイプとフリック ===== */
-let T0=null;
-document.addEventListener('touchstart',e=>{const t=e.touches[0];T0={x:t.clientX,y:t.clientY,el:e.target,fl:e.target.closest('.flick'),row:e.target.closest('[data-swipe-i]'),fv:e.target.closest('#fview')};},{passive:true});
-document.addEventListener('touchmove',e=>{if(T0&&T0.fl)e.preventDefault();},{passive:false});
-document.addEventListener('touchend',e=>{
-  if(!T0)return;const t=e.changedTouches[0],dx=t.clientX-T0.x,dy=t.clientY-T0.y,S=T0;T0=null;
-  // 数字を上下にフリック：上で増やす・下で減らす（30pxごとに1段階）
-  if(S.fl&&Math.abs(dy)>18&&Math.abs(dy)>Math.abs(dx)){
-    const steps=Math.max(-6,Math.min(6,Math.round(-dy/30)||(dy<0?1:-1)));
-    const d=D(),it=d.items[ui.focus],s=it.sets[ui.cur],k=S.fl.dataset.flick;
-    if(k==='kg'){const v=snap2(it.ex,s.kg+steps*EX[it.ex].step);it.sets.forEach((x,m)=>{if(m===ui.cur||(m>ui.cur&&!x.done))x.kg=v;});}
-    if(k==='rep') s.reps=Math.max(0,s.reps+steps);
-    if(k==='sec'){s.sec=Math.max(10,s.sec+steps*10);it.sets.forEach((x,m)=>{if(m>ui.cur&&!x.done)x.sec=s.sec;});}
-    render();return;
-  }
-  if(Math.abs(dx)<70||Math.abs(dy)>50)return;
-  // 一覧：種目を左にスワイプで代わりの種目へ
-  if(S.row&&dx<0){const i=+S.row.dataset.swipeI,it=D().items[i];if(canSwap(it)){S.row.querySelector('[data-act=swap]').click();}else toast('この種目は替えられません');return;}
-  // 集中画面：左で次の種目、右で一覧へ
-  if(S.fv&&!ui.hold){if(dx<0&&ui.focus<D().items.length-1){openFocus(ui.focus+1);}else if(dx>0){ui.focus=null;}else return;render();scrollTo(0,0);}
+/* ===== 親指操作：左右スワイプ =====
+   ・動き始め8pxで縦か横かを決める（斜めでも横が勝てば横）
+   ・指に画面がついてくる。画面幅の2割以上、または素早く払えば切り替え
+   ・集中画面では上の情報エリアでも下の操作エリアでもスワイプできる */
+let G=null;
+const animOK=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+function swipeEls(){return [$('#fview'),$('#dock')].filter(Boolean);}
+function slideTo(i,dir){ // dir: -1＝左へ送る（次）、1＝右へ送る（前）
+  const go=()=>{openFocus(i);render();scrollTo(0,0);
+    if(!animOK)return;const els=swipeEls();
+    els.forEach(el=>{el.style.transition='none';el.style.transform=`translateX(${-dir*28}%)`;el.style.opacity='0.4';});
+    requestAnimationFrame(()=>requestAnimationFrame(()=>els.forEach(el=>{el.style.transition='transform .2s ease-out, opacity .2s';el.style.transform='';el.style.opacity='';})));};
+  if(!animOK){go();return;}
+  swipeEls().forEach(el=>{el.style.transition='transform .15s ease-in, opacity .15s';el.style.transform=`translateX(${dir*100}%)`;el.style.opacity='0.2';});
+  setTimeout(go,150);
+}
+function springBack(els){els.forEach(el=>{el.style.transition='transform .2s ease-out';el.style.transform='';});}
+document.addEventListener('touchstart',e=>{
+  if(e.touches.length!==1||e.target.closest('input,textarea,select')){G=null;return;}
+  const t=e.touches[0],row=null;
+  const fv=ui.tab==='today'&&ui.focus!==null&&!ui.hold&&!!e.target.closest('#fview,#dock');
+  G={x:t.clientX,y:t.clientY,t:performance.now(),lock:null,dx:0,row,fv,els:fv?swipeEls():row?[row]:[]};
+  if(!G.els.length)G=null;
 },{passive:true});
+document.addEventListener('touchmove',e=>{
+  if(!G)return;const t=e.touches[0],dx=t.clientX-G.x,dy=t.clientY-G.y;
+  if(!G.lock){if(Math.abs(dx)<8&&Math.abs(dy)<8)return;G.lock=Math.abs(dx)>Math.abs(dy)*0.8?'h':'v';if(G.lock==='v'){G=null;return;}G.els.forEach(el=>el.style.transition='none');}
+  e.preventDefault();
+  const off=dx>0?dx:dx*0.15; // 左へはほとんど動かない
+  G.dx=dx;G.els.forEach(el=>{el.style.transform=`translateX(${off}px)`;el.style.opacity=String(Math.max(.4,1-Math.max(0,dx)/innerWidth));});
+},{passive:false});
+document.addEventListener('touchend',()=>{
+  if(!G)return;const g=G;G=null;if(g.lock!=='h')return;
+  const dt=performance.now()-g.t,pass=g.dx>innerWidth*0.22||(g.dx>40&&g.dx/dt>0.35);
+  if(pass){g.els.forEach(el=>{el.style.transition='transform .14s ease-in, opacity .14s';el.style.transform='translateX(100%)';el.style.opacity='0';});
+    setTimeout(()=>{ui.focus=null;ui.hold=null;render();scrollTo(0,0);},140);return;}
+  g.els.forEach(el=>{el.style.transition='transform .2s ease-out, opacity .2s';el.style.transform='';el.style.opacity='';});
+},{passive:true});
+document.addEventListener('touchcancel',()=>{if(G){G.els.forEach(el=>{el.style.transition='transform .2s';el.style.transform='';el.style.opacity='';});G=null;}},{passive:true});
 render();
 queueSync(2500);
 })();
